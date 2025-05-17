@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <label for="input">Enter the expense amount</label>
+        <input type="text" class="input" id="input" placeholder="Enter here"><br><br>
+      </div>
+      <div class="col">
+        <label for="input">Enter description</label>
+        <input type="text" class="input" id="input" placeholder="Enter here">
+      </div>
+      <div class="col">
+        <div class="d-flex align-items-center">
+          <label class="me-2 mb-0" for="dropdownMenuButton">Choose a category:</label>
+          <div class="dropdown">
+            <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+              Select
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <li><a class="dropdown-item" href="#">Movie</a></li>
+              <li><a class="dropdown-item" href="#">Food</a></li>
+              <li><a class="dropdown-item" href="#">Electricity</a></li>
+              <li><a class="dropdown-item" href="#">Fuel</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Update dropdown button text when item is clicked
+    document.querySelectorAll('.dropdown-item').forEach(item => {
+      item.addEventListener('click', function(e) {
+        e.preventDefault();
+        const dropdownButton = document.getElementById('dropdownMenuButton');
+        dropdownButton.textContent = this.textContent;
+      });
+    });
+  </script>
+</body>
+</html>
