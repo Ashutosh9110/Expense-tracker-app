@@ -9,15 +9,17 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="container">
+  <div class="container mt-4">
+    <h5>Expenses:</h5>
+    <ul id="expenseList" class="list-group"></ul>
     <div class="row">
       <div class="col">
         <label for="input">Enter the expense amount</label>
-        <input type="text" class="input" id="input" placeholder="Enter here"><br><br>
+        <input type="text" class="input" id="expenseAmount" placeholder="Enter here"><br><br>
       </div>
       <div class="col">
         <label for="input">Enter description</label>
-        <input type="text" class="input" id="input" placeholder="Enter here">
+        <input type="text" class="input" id="expenseDesc" placeholder="Enter here">
       </div>
       <div class="col">
         <div class="d-flex align-items-center">
@@ -36,10 +38,69 @@
         </div>
       </div>
     </div>
+      <button class="btn btn-primary" onclick="addExpense()">Add Expense</button>
   </div>
 
   <script>
-    // Update dropdown button text when item is clicked
+
+    let expenses = []
+
+    function addExpense() {
+      const amount = document.getElementById("expenseAmount").value
+      const description = document.getElementById("expenseDesc").value
+      const category = document.getElementById("dropdownMenuButton").textContent
+
+      if (!amount || !description || !category) {
+        alert ("Please fill all the fields")
+        return
+      }
+
+      const expense = {
+        id : Date.now(),
+        amount,
+        description,
+        category
+      }
+
+      expenses.push(expense)
+      renderExpenses()
+    }
+
+    function renderExpenses() {
+      const list = document.getElementById("expenseList")
+      list.innerHTML = ""
+
+      expenses.forEach(exp => {
+        const li = document.createElement("li")
+        li.className = 'list-group-item d-flex justify-content-between align-items-center';
+
+        li.innerHTML = `
+        ${exp.amount} - ${exp.category} - ${exp.description}
+        <div>
+          <button class="btn btn-sm btn-warning me-2" onclick="editExpense(${exp.id})">Edit Expense</button>
+          <button class="btn btn-sm btn-danger" onclick="deleteExpense(${exp.id})">Delete Expense</button>
+        </div>
+      `;
+      list.appendChild(li);
+
+      })
+    }
+
+    function deleteExpense(id) {
+    expenses = expenses.filter(exp => exp.id !== id);
+    renderExpenses();
+  }
+
+
+  function editExpense(id) {
+    const exp = expenses.find(e => e.id === id);
+    document.getElementById('expenseAmount').value = exp.amount;
+    document.getElementById('expenseDesc').value = exp.description;
+    document.getElementById('dropdownMenuButton').textContent = exp.category;
+    deleteExpense(id);
+  }
+
+
     document.querySelectorAll('.dropdown-item').forEach(item => {
       item.addEventListener('click', function(e) {
         e.preventDefault();
